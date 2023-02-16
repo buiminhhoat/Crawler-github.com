@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('./ejs/partials/head') %>
+</head>
+
+<body>
+    <%- include('./ejs/partials/header') %>
+
+    <main>
+        <h1 style="text-align: center">Số phiên bản: <%=data.length%></h1>
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">STT</th>
+                    <th scope="col">Version</th>
+                    <th scope="col">Author</th>
+                    <th scope="col">Commit</th>
+                    <th scope="col" style="text-align: center">Change Log</th>
+                    <th scope="col">Created At</th>
+                    <th scope="col" style="text-align: center">Published At</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <% for (let i = 0; i < data.length; ++i) { %>
+                    <% let info = data[i]; %>
+                    <tr style="vertical-align: center">
+                        <td style="text-align: center"><%= info.number%></td>
+                        <td style="text-align: center"><a href="<%= info.htmlUrl%>"><%= info.name%></a></td>
+                        <td style="text-align: center">
+                            <img src="<%= info.author.avatar_url%>" alt="avatar" width="32px" height="32px">
+                            <br>
+                            <a href="<%= info.author.html_url%>"> <%= info.author.login%></a>
+                        </td>
+                        <td style="text-align: center">
+                            <a href="/commits_detail?tag_name=<%= info.tag_name%>&index=<%= i%>">
+                                <%= info.totalCommits%>
+                            </a>
+                        </td>
+                        <td>
+                            <div
+                                    class="scroll"
+                                    style="max-width: 900px; min-width: 700px"
+                                    onclick="sendData('/show-changelog-commits', {index: <%= i%>})"
+                            >
+                                <%-info.body%>
+                            </div>
+                        </td>
+                        <td><%= info.created_at%></td>
+                        <td><%= info.published_at%></td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </main>
+    <%- include('./ejs/partials/footer') %>
+</body>
+<script src="../public/js/send-data.js"></script>
+</html>

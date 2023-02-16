@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('./ejs/partials/head') %>
+</head>
+
+<body>
+<%- include('./ejs/partials/header') %>
+<main>
+    <h1 style="text-align: center">Commits Detail</h1>
+    <table class="table table-bordered table-hover">
+        <thead>
+        <tr>
+            <th scope="col">STT</th>
+            <th scope="col">Hash code</th>
+            <th scope="col">Committer</th>
+            <th scope="col" style="text-align: center">Comment</th>
+            <th scope="col">Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% for (let i = listCommits.length-1; i >= 0; --i) { %>
+            <% let info = listCommits[i]; %>
+            <tr>
+                <td><%= listCommits.length - i %></td>
+                <td><a href="<%= info.html_url%>"><%= info.sha%></a></td>
+                <td>
+                    <% let link = (info.committer == null ? '' : info.committer.html_url); %>
+                    <a href="<%=link%>">
+                        <%= (info.committer == null ? `Unknown` : info.committer.login)%>
+                    </a>
+                </td>
+                <td style="max-width: 700px">
+                    <div class="scroll">
+                        <%- info.commit.message%>
+                    </div>
+                </td>
+                <td><%= info.commit.author.date%></td>
+            </tr>
+        <% } %>
+        </tbody>
+    </table>
+</main>
+
+<%- include('./ejs/partials/footer') %>
+</body>
+
+</html>

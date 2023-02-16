@@ -1,0 +1,12 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-dark" style="background-color: #6E85B7">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#" style="color: #ffff">Bùi Minh Hoạt</a>
+
+        <form action="/crawl" class="d-flex" method="POST">
+            <label for="crawl-link-input">Ví dụ: https://github.com/mastodon/mastodon</label>
+            <input class="form-control me-2" id="crawl-link-input" name="githubRepo"
+                   placeholder="Ví dụ: https://github.com/DMOJ/online-judge" size="60">
+            <button action="/crawl" class="btn btn-outline-success" method="POST" type="submit">Crawl</button>
+        </form>
+    </div>
+</nav>
